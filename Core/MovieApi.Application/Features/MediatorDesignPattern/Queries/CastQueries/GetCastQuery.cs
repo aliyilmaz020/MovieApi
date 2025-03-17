@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MovieApi.Application.Features.MediatorDesignPattern.Queries.CastQueries
 {
-    public class GetCostQuery : IRequest<List<GetCastQueryResult>>
+    public class GetCastQuery : IRequest<List<GetCastQueryResult>>
     {
 
     }
