@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["Title"] = "MovieDetail";
+    Layout = "~/Views/UserWebUILayout/LayoutUI.cshtml";
+}
+<div class="hero mv-single-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- <h1> movie listing - list</h1>
+                <ul class="breadcumb">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-single movie-single movie_single">
+    <div class="container">
+        <div class="row ipad-width2">
+            <!-- left -->
+            @await Component.InvokeAsync("_MovieImageAndWatchTrailerComponentPartial");
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <div class="movie-single-ct main-content">
+                    <h1 class="bd-hd">Skyfall: Quantum of Spectre <span>2015</span></h1>
+                    @await Component.InvokeAsync("_MovieDetailShareSocialMediaComponentPartial")
+                    @await Component.InvokeAsync("_MovieDetailRateComponentPartial")
+                    <div class="movie-tabs">
+                        <div class="tabs">
+                            @await Component.InvokeAsync("_MovieDetailTabLinksComponentPartial")
+                            <div class="tab-content">
+                                @await Component.InvokeAsync("_MovieDetailOverviewComponentPartial")
+                                @await Component.InvokeAsync("_MovieDetailReviewsComponentPartial")
+                                @await Component.InvokeAsync("_MovieDetailCastComponentPartial")
+                                @await Component.InvokeAsync("_MovieDetailMediaComponentPartial")
+                                @await Component.InvokeAsync("_MovieDetailMoviesRelatedComponentPartial")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

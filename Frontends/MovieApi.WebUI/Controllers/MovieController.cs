@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieApi.Dto.Dtos.MovieDtos;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace MovieApi.WebUI.Controllers
 {
@@ -23,6 +24,10 @@ namespace MovieApi.WebUI.Controllers
                 var values = JsonConvert.DeserializeObject<List<ResultMovieDto>>(jsonData);
                 return View(values);
             }
+            return View();
+        }
+        public IActionResult MovieDetail()
+        {
             return View();
         }
     }
