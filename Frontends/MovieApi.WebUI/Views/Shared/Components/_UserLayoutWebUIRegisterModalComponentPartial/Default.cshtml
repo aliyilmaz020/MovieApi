@@ -2,35 +2,73 @@
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3>Kaydol</h3>
-        <form method="post" action="#">
+        <p id="passwordMessage"></p>
+        <form id="formRegister">
             <div class="row">
-                <label for="username-2">
-                    Kullanıcı Adı:
-                    <input type="text" name="username" id="username-2" placeholder="Hugh Jackman" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
-                </label>
-            </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <label>
+                            Adı:
+                            <input type="text" id="name-2" required />
+                        </label>
+                    </div>
 
-            <div class="row">
-                <label for="email-2">
-                    E-Posta Adresi:
-                    <input type="text" name="email" id="email-2" placeholder="E-Posta" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                </label>
-            </div>
-            <div class="row">
-                <label for="password-2">
-                    Şifre:
-                    <input type="password" name="password" id="password-2" placeholder="" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                </label>
-            </div>
-            <div class="row">
-                <label for="repassword-2">
-                    Şifreyi Tekrar Gir:
-                    <input type="password" name="password" id="repassword-2" placeholder="" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                </label>
-            </div>
-            <div class="row">
-                <button type="submit">Kayıt Ol</button>
+                    <div class="row">
+                        <label>
+                            Soyadı:
+                            <input type="text" id="surname-2" required />
+                        </label>
+                    </div>
+
+                    <div class="row">
+                        <label>
+                            Kullanıcı Adı:
+                            <input type="text" id="username-2" autocapitalize="off"
+                                   autocomplete="off"
+                                   spellcheck="false" required />
+                            <span id="usernameMessage"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row">
+                        <label>
+                            E-Posta:
+                            <input type="text" id="email-2" autocapitalize="off"
+                                   autocomplete="off"
+                                   spellcheck="false" required />
+                            <span id="emailMessage"></span>
+                        </label>
+                    </div>
+
+                    <div class="row">
+                        <label>
+                            Şifre:
+                            <input type="password" autocapitalize="off"
+                                   autocomplete="off"
+                                   spellcheck="false" id="password-2" required />
+                        </label>
+                    </div>
+
+                    <div class="row">
+                        <label>
+                            Şifre Tekrar:
+                            <input type="password" autocapitalize="off"
+                                   autocomplete="off"
+                                   spellcheck="false" id="repassword-2" required />
+                        </label>
+                    </div>
+
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary w-100">
+                            Kayıt Ol
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </form>
+
     </div>
 </div>

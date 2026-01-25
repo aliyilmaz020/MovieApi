@@ -1,32 +1,14 @@
-using MovieApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandlers;
-using MovieApi.Application.Features.CQRSDesignPattern.Handlers.MovieHandlers;
-using MovieApi.Persistence.Context;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
-using MovieApi.Application.Features.MediatorDesignPattern.Handlers.TagHandlers;
+using MovieApi.Persistence;
+using MovieApi.Application;
+using MovieApi.WebApi;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<MovieContext>();
-//Registiration
-
-//Category
-builder.Services.AddScoped<GetCategoryQueryHandler>();
-builder.Services.AddScoped<GetCategoryByIdQueryHandler>();
-builder.Services.AddScoped<CreateCategoryCommandHandler>();
-builder.Services.AddScoped<UpdateCategoryCommandHandler>();
-builder.Services.AddScoped<RemoveCategoryCommandHandler>();
-
-//Tag
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetTagQueryHandler).Assembly));
-//builder.Services.AddMediatR(cfg=>cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-//Movie
-builder.Services.AddScoped<GetMovieQueryHandler>();
-builder.Services.AddScoped<GetMovieByIdQueryHandler>();
-builder.Services.AddScoped<CreateMovieCommandHandler>();
-builder.Services.AddScoped<UpdateMovieCommandHandler>();
-builder.Services.AddScoped<RemoveMovieCommandHandler>();
-
+builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddApplicationServices();
+builder.Services.AddWebApiServices();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

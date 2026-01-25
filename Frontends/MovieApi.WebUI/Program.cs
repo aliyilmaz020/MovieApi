@@ -2,7 +2,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("MovieApi", opt =>
+{
+    opt.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiAddress"));
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,6 +22,11 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
 
 app.MapControllerRoute(
     name: "default",

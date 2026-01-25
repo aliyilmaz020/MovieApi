@@ -2,18 +2,18 @@
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3>Giriş Yap</h3>
-        <form method="post" action="#">
+        <form id="formLogin">
             <div class="row">
-                <label for="username">
-                    Kullanıcı Adı:
-                    <input type="text" name="username" id="username" placeholder="Kullanıcı Adı" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
+                <label for="usernameOrEmail">
+                    Kullanıcı Adı veya E-Posta:
+                    <input type="text" id="usernameOrEmail" placeholder="Kullanıcı Adı" required="required" />
                 </label>
             </div>
 
             <div class="row">
                 <label for="password">
                     Şifre:
-                    <input type="password" name="password" id="password" placeholder="******" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                    <input type="password" id="password" placeholder="******" required="required" />
                 </label>
             </div>
             <div class="row">
