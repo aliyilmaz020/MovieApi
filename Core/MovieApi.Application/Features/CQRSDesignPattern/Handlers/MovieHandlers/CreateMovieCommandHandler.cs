@@ -17,7 +17,7 @@ namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.MovieHandlers
         {
             _context = context;
         }
-        public async Task Handle(CreateMovieCommand command)
+        public async Task<bool> Handle(CreateMovieCommand command)
         {
             _context.Movies.Add(new Movie
             {
@@ -30,7 +30,7 @@ namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.MovieHandlers
                 Status = command.Status,
                 Title = command.Title
             });
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

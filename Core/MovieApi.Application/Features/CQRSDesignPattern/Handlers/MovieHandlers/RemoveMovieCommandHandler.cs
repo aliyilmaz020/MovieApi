@@ -17,11 +17,16 @@ namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.MovieHandlers
         {
             _context = context;
         }
-        public async Task Handle(RemoveMovieCommand command)
+        public async Task<bool> Handle(RemoveMovieCommand command)
         {
             var value = await _context.Movies.FindAsync(command.MovieId);
-            _context.Movies.Remove(value);
-            await _context.SaveChangesAsync();
+            if (value is not null)
+            {
+                value.Status = false;
+                _context.Movies.Update(value);
+                return await _context.SaveChangesAsync() > 0;
+            }
+            return false;
         }
     }
 }

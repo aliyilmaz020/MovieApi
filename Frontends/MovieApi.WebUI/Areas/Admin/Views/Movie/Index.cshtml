@@ -1,0 +1,173 @@
+﻿
+@{
+    ViewData["Title"] = "Filmler";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="movie-content">
+    <div class="page-header">
+        <h2><i class="fas fa-film"></i> Film Yönetimi</h2>
+        <button class="btn btn-success" onclick="openModal()">
+            <i class="fas fa-plus" onclick="saveFilm()"></i> Yeni Film Ekle
+        </button>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-label">Toplam Film</div>
+            <div class="stat-value">156</div>
+        </div>
+        <div class="stat-card" style="border-color: #1cc88a;">
+            <div class="stat-label">Aktif Filmler</div>
+            <div class="stat-value">142</div>
+        </div>
+        <div class="stat-card" style="border-color: #f6c23e;">
+            <div class="stat-label">Yakında</div>
+            <div class="stat-value">14</div>
+        </div>
+        <div class="stat-card" style="border-color: #e74a3b;">
+            <div class="stat-label">Ortalama Puan</div>
+            <div class="stat-value">7.8</div>
+        </div>
+    </div>
+
+    <!-- Search and Filter -->
+    <div class="search-filter-bar">
+        <div class="search-box">
+            <div class="form-group">
+                <label>Film Ara</label>
+                <input type="text" class="form-control" placeholder="Film adı..." id="searchInput">
+            </div>
+            <div class="form-group">
+                <label>Kategori</label>
+                <select class="form-control" id="categoryFilter">
+                    <option value="">Tümü</option>
+                    <option value="aksiyon">Aksiyon</option>
+                    <option value="dram">Dram</option>
+                    <option value="komedi">Komedi</option>
+                    <option value="korku">Korku</option>
+                    <option value="bilimkurgu">Bilim Kurgu</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Durum</label>
+                <select class="form-control" id="statusFilter">
+                    <option value="">Tümü</option>
+                    <option value="aktif">Aktif</option>
+                    <option value="yakinda">Yakında</option>
+                    <option value="arsiv">Arşiv</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="filterFilms()">
+                <i class="fas fa-search"></i> Ara
+            </button>
+        </div>
+    </div>
+
+    <!-- Films Table -->
+    <div class="films-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Film Adı</th>
+                    <th>Yıl</th>
+                    <th>Süre</th>
+                    <th>IMDB</th>
+                    <th>Durum</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody id="filmsTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal" id="filmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Yeni Film Ekle</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Film Adı *</label>
+                    <input type="text" class="form-control" id="filmTitle" placeholder="Film adını girin">
+                </div>
+                <div class="form-group">
+                    <label>Yıl *</label>
+                    <input type="number" class="form-control" id="filmCreatedYear" placeholder="2024">
+                </div>
+                <div class="form-group">
+                    <label>Süre (dakika) *</label>
+                    <input type="number" class="form-control" id="filmDuration" placeholder="120">
+                </div>
+                <div class="form-group">
+                    <label>IMDB Puanı</label>
+                    <input type="text" class="form-control" id="filmRating" placeholder="8,5">
+                </div>
+                <div class="form-group">
+                    <label>Poster URL</label>
+                    <input type="text" class="form-control" id="filmCoverImageUrl" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>Yayınlanma Tarihi</label>
+                    <input type="datetime-local" class="form-control" id="filmReleaseDate">
+                </div>
+                <div class="form-group">
+                    <label>Açıklama</label>
+                    <textarea class="form-control" id="filmDescription" rows="3" placeholder="Film hakkında kısa açıklama..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="closeModal()">İptal</button>
+                <button class="btn btn-success" id="btnSaveOrEdit" onclick="saveFilm()"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal delete-modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Film Sil</h3>
+                <button class="close-btn" onclick="closeDeleteModal()">&times;</button>
+            </div>
+            <div class="delete-modal-body">
+                <div class="delete-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <p>Bu filmi silmek istediğinizden emin misiniz?</p>
+                <p class="film-name" id="deleteFilmName"></p>
+                <p style="font-size: 14px; color: #858796;">Bu işlem geri alınamaz!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeDeleteModal()">İptal</button>
+                <button class="btn btn-danger" onclick="confirmDelete()">
+                    <i class="fas fa-trash"></i> Sil
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    <script src="~/js/movie.js"></script>
+}
+@section Styles{
+    <link href="~/css/movie.css" rel="stylesheet" />
+}
+@section Items{
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index:1080">
+        <div id="liveToast" class="toast">
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto" id="toastrTitle"></strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body bg-success-subtle text-success-emphasis" id="toastrBody">
+            </div>
+        </div>
+    </div>
+}

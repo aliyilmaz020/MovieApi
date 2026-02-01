@@ -1,8 +1,6 @@
-﻿namespace MovieApi.Application.Features.CQRSDesignPattern.Commands.MovieCommands;
-
-public class UpdateMovieCommand
+﻿namespace MovieApi.Dto.Dtos.MovieDtos;
+public class CreateMovieDto
 {
-    public int MovieId { get; set; }
     public string Title { get; set; }
     public string CoverImageUrl { get; set; }
     public decimal Rating { get; set; }

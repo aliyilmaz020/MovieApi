@@ -7,7 +7,6 @@ public class HomeController : Controller
 {
     public IActionResult Index()
     {
-        ViewBag.Title = "Admin Home Page";
         return View();
     }
 }

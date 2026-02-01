@@ -5,63 +5,24 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - @ViewBag.Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="~/css/admin.css" rel="stylesheet" />
+    @await Component.InvokeAsync("_AdminHeadComponentPartial")
+    @RenderSection("Styles", false)
+
 </head>
 <body>
     <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
-            <h4><i class="fas fa-crown"></i> Admin Panel</h4>
-        </div>
-        <ul class="sidebar-menu">
-            <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
-            <li><a href="#"><i class="fas fa-users"></i> Kullanıcılar</a></li>
-            <li><a href="#"><i class="fas fa-box"></i> Ürünler</a></li>
-            <li><a href="#"><i class="fas fa-shopping-cart"></i> Siparişler</a></li>
-            <li><a href="#"><i class="fas fa-chart-bar"></i> Raporlar</a></li>
-            <li><a href="#"><i class="fas fa-cog"></i> Ayarlar</a></li>
-        </ul>
-    </aside>
-
+    @await Component.InvokeAsync("_AdminSidebarComponentPartial")
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
         <!-- Navbar -->
-        <nav class="navbar">
-            <div class="navbar-left">
-                <button class="toggle-btn" id="toggleBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <h5 style="margin: 0;">Dashboard</h5>
-            </div>
-            <div class="navbar-right">
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-sun"></i>
-                </button>
-                <div class="user-profile" id="userProfile">
-                    <div class="user-avatar">AK</div>
-                    <div class="user-info">
-                        <span class="user-name">Admin Kullanıcı</span>
-                        <span class="user-role">Yönetici</span>
-                    </div>
-                    <i class="fas fa-chevron-down"></i>
-                    <div class="dropdown-menu" id="userDropdown">
-                        <a href="#"><i class="fas fa-user"></i> Profilim</a>
-                        <a href="#"><i class="fas fa-cog"></i> Ayarlar</a>
-                        <a href="#"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
+        @await Component.InvokeAsync("_AdminNavbarComponentPartial")
+       
         <!-- Content Area -->
         @RenderBody()
-        
+
     </div>
-    <script src="~/js/admin.js"></script>
+    @RenderSection("Items",false) 
+    @await Component.InvokeAsync("_AdminScriptsComponentPartial")
+    @RenderSection("Scripts",false)
 </body>
 </html>

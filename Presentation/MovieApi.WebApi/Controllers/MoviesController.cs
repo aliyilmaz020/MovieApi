@@ -33,14 +33,14 @@ namespace MovieApi.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMovie(CreateMovieCommand command)
         {
-            await _createMovieCommandHandler.Handle(command);
-            return Ok("Film Ekleme İşlemi Başarılı");
+            bool result = await _createMovieCommandHandler.Handle(command);
+            return Ok(result);
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteMovie(int id)
         {
-            await _removeMovieCommandHandler.Handle(new RemoveMovieCommand(id));
-            return Ok("Film Silme İşlemi Başarılı");
+            bool response = await _removeMovieCommandHandler.Handle(new RemoveMovieCommand(id));
+            return Ok(response);
         }
         [HttpPut]
         public async Task<IActionResult> UpdateMovie(UpdateMovieCommand command)
@@ -48,8 +48,8 @@ namespace MovieApi.WebApi.Controllers
             await _updateMovieCommandHandler.Handler(command);
             return Ok("Film Güncelleme İşlemi Başarılı");
         }
-        [HttpGet("GetMovie")]
-        public async Task<IActionResult> GetMovie(int id)
+        [HttpGet("GetMovie/{id}")]
+        public async Task<IActionResult> GetMovie([FromRoute] int id)
         {
             var value = await _getMovieByIdQueryHandler.Handler(new GetMovieByIdQuery(id));
             return Ok(value);

@@ -1,6 +1,5 @@
-﻿namespace MovieApi.Application.Features.CQRSDesignPattern.Commands.MovieCommands;
-
-public class UpdateMovieCommand
+﻿namespace MovieApi.Dto.Dtos.MovieDtos;
+public class UpdateMovieDto
 {
     public int MovieId { get; set; }
     public string Title { get; set; }
