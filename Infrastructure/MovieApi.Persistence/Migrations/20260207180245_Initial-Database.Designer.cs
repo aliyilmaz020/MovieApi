@@ -12,8 +12,8 @@ using MovieApi.Persistence.Context;
 namespace MovieApi.Persistence.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20260124162638_mig_6")]
-    partial class mig_6
+    [Migration("20260207180245_Initial-Database")]
+    partial class InitialDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace MovieApi.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CastMovie", b =>
+                {
+                    b.Property<int>("CastsCastId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MoviesMovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CastsCastId", "MoviesMovieId");
+
+                    b.HasIndex("MoviesMovieId");
+
+                    b.ToTable("CastMovie");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
@@ -175,6 +190,17 @@ namespace MovieApi.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
@@ -297,6 +323,9 @@ namespace MovieApi.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MovieId"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CoverImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -326,6 +355,8 @@ namespace MovieApi.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MovieId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Movies");
                 });
@@ -371,6 +402,21 @@ namespace MovieApi.Persistence.Migrations
                     b.HasKey("TagId");
 
                     b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("CastMovie", b =>
+                {
+                    b.HasOne("MovieApi.Domain.Entities.Cast", null)
+                        .WithMany()
+                        .HasForeignKey("CastsCastId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieApi.Domain.Entities.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MoviesMovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -422,6 +468,22 @@ namespace MovieApi.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MovieApi.Domain.Entities.Movie", b =>
+                {
+                    b.HasOne("MovieApi.Domain.Entities.Category", "Category")
+                        .WithMany("Movies")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("MovieApi.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("Movies");
                 });
 #pragma warning restore 612, 618
         }
