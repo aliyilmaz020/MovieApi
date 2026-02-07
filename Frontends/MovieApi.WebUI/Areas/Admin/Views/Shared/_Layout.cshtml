@@ -21,7 +21,16 @@
         @RenderBody()
 
     </div>
-    @RenderSection("Items",false) 
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index:1080">
+        <div id="liveToast" class="toast">
+            <div class="toast-header text-white" id="toastrHeader">
+                <strong class="me-auto" id="toastrTitle"></strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body bg-success-subtle text-success-emphasis" id="toastrBody">
+            </div>
+        </div>
+    </div>
     @await Component.InvokeAsync("_AdminScriptsComponentPartial")
     @RenderSection("Scripts",false)
 </body>

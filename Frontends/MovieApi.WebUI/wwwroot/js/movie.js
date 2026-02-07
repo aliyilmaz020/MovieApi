@@ -1,8 +1,6 @@
 ﻿let movieId = null;
 let modalMode = 'create';
 let row = '';
-
-const liveToast = document.getElementById('liveToast');
 function openModal() {
     modalMode = 'create';
     movieId = null;
@@ -150,13 +148,6 @@ async function confirmDelete() {
 
     }
 }
-function toastr(title, body) {
-
-    $('#toastrTitle').text(title);
-    $('#toastrBody').text(body);
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(liveToast)
-    toastBootstrap.show();
-}
 function filterFilms() {
     const searchTerm = document.getElementById('searchInput').value;
     const category = document.getElementById('categoryFilter').value;
@@ -166,7 +157,6 @@ function filterFilms() {
     // Buraya filtreleme kodu gelecek
 }
 async function getFilms() {
-    debugger
     const response = await fetch('/Admin/Movie/MovieList', {
         method: 'POST',
         headers: {

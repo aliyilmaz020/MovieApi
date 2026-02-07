@@ -2,6 +2,7 @@
 const toggleBtn = document.getElementById('toggleBtn');
 const sidebar = document.getElementById('sidebar');
 const mainContent = document.getElementById('mainContent');
+const liveToast = document.getElementById('liveToast');
 
 toggleBtn.addEventListener('click', () => {
     sidebar.classList.toggle('collapsed');
@@ -42,3 +43,11 @@ userProfile.addEventListener('click', (e) => {
 document.addEventListener('click', () => {
     userDropdown.classList.remove('show');
 });
+function toastr(title, body, color = 'bg-success') {
+    debugger
+    $('#toastrHeader').addClass(color)
+    $('#toastrTitle').text(title);
+    $('#toastrBody').text(body);
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(liveToast)
+    toastBootstrap.show();
+}

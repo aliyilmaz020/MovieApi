@@ -1,0 +1,130 @@
+﻿@{
+    ViewData["Title"] = "Kategoriler";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+
+<div class="category-content">
+    <div class="page-header">
+        <h2><i class="fas fa-tags"></i> Kategori Yönetimi</h2>
+        <button class="btn btn-success" onclick="openModal()">
+            <i class="fas fa-plus"></i> Yeni Kategori Ekle
+        </button>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-card-label">Toplam Kategori</div>
+            <div class="stat-card-value">8</div>
+        </div>
+        <div class="stat-card" style="border-color: #1cc88a;">
+            <div class="stat-card-label">Aktif Kategoriler</div>
+            <div class="stat-card-value">7</div>
+        </div>
+        <div class="stat-card" style="border-color: #f6c23e;">
+            <div class="stat-card-label">Toplam Film</div>
+            <div class="stat-card-value">156</div>
+        </div>
+        <div class="stat-card" style="border-color: #36b9cc;">
+            <div class="stat-card-label">En Popüler</div>
+            <div class="stat-card-value">Aksiyon</div>
+        </div>
+    </div>
+
+    <!-- Search and Filter -->
+    <div class="search-filter-bar">
+        <div class="search-box">
+            <div class="form-group">
+                <label>Kategori Ara</label>
+                <input type="text" class="form-control" placeholder="Kategori adı..." id="searchInput">
+            </div>
+            <div class="form-group">
+                <label>Durum</label>
+                <select class="form-control" id="statusFilter">
+                    <option value="">Tümü</option>
+                    <option value="aktif">Aktif</option>
+                    <option value="pasif">Pasif</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="filterCategories()">
+                <i class="fas fa-search"></i> Ara
+            </button>
+        </div>
+    </div>
+
+    <!-- Categories Grid -->
+    <div class="categories-grid" id="categoriesGrid">
+    </div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal" id="categoryModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">Yeni Kategori Ekle</h3>
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Kategori Adı *</label>
+                <input type="text" class="form-control" id="categoryName" placeholder="Örn: Aksiyon">
+            </div>
+            <div class="form-group">
+                <label>İkon *</label>
+                <input type="text" class="form-control" id="categoryIcon" placeholder="Örn: fa-fist-raised">
+                <small style="color: #858796;">Font Awesome ikon adı girin</small>
+            </div>
+            <div class="form-group">
+                <label>Renk *</label>
+                <div class="color-picker-group">
+                    <input type="color" class="color-picker" id="categoryColor" value="#4e73df">
+                    <input type="text" class="form-control" id="categoryColorHex" value="#4e73df" style="flex: 1;" disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Durum *</label>
+                <select class="form-control" id="categoryStatus">
+                    <option selected value="false">Pasif</option>
+                    <option value="true">Aktif</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" onclick="closeModal()">İptal</button>
+            <button class="btn btn-success" id="saveBtn" onclick="saveCategory()">
+                <i class="fas fa-save"></i> Kaydet
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal delete-modal" id="deleteModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Kategori Sil</h3>
+            <button class="close-btn" onclick="closeDeleteModal()">&times;</button>
+        </div>
+        <div class="delete-modal-body">
+            <div class="delete-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <p>Bu kategoriyi silmek istediğinizden emin misiniz?</p>
+            <p class="category-name-delete" id="deleteCategoryName"></p>
+            <p style="font-size: 14px; color: #858796;">Bu kategorideki tüm filmler etkilenebilir!</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" onclick="closeDeleteModal()">İptal</button>
+            <button class="btn btn-danger" onclick="confirmDelete()">
+                <i class="fas fa-trash"></i> Sil
+            </button>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/category.js"></script>
+}
+@section Styles{
+    <link href="~/css/category.css" rel="stylesheet" />
+}

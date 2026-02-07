@@ -12,7 +12,7 @@ using MovieApi.Persistence.Context;
 namespace MovieApi.Persistence.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20260207180245_Initial-Database")]
+    [Migration("20260207180850_Initial-Database")]
     partial class InitialDatabase
     {
         /// <inheritdoc />

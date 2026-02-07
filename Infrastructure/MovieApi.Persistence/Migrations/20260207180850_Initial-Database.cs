@@ -262,13 +262,13 @@ namespace MovieApi.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_CastMovie", x => new { x.CastId, x.MovieId });
                     table.ForeignKey(
-                        name: "FK_CastMovie_Casts_CastId",
+                        name: "FK_CastMovie_Casts_CastsCastId",
                         column: x => x.CastId,
                         principalTable: "Casts",
                         principalColumn: "CastId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CastMovie_Movies_MovieId",
+                        name: "FK_CastMovie_Movies_MoviesMovieId",
                         column: x => x.MovieId,
                         principalTable: "Movies",
                         principalColumn: "MovieId",
@@ -315,7 +315,7 @@ namespace MovieApi.Persistence.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CastMovie_MovieId",
+                name: "IX_CastMovie_MoviesMovieId",
                 table: "CastMovie",
                 column: "MovieId");
 

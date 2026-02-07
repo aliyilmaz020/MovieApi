@@ -1,6 +1,5 @@
-﻿namespace MovieApi.Application.Features.CQRSDesignPattern.Results.CategoryResults;
-
-public class GetCategoryByIdQueryResult
+﻿namespace MovieApi.Dto.Dtos.CategoryDtos;
+public class UpdateCategoryDto
 {
     public int CategoryId { get; set; }
     public string CategoryName { get; set; }

@@ -1,30 +1,25 @@
 ﻿using MovieApi.Application.Features.CQRSDesignPattern.Queries.CategoryQueries;
 using MovieApi.Application.Features.CQRSDesignPattern.Results.CategoryResults;
 using MovieApi.Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandlers
+namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandlers;
+
+public class GetCategoryByIdQueryHandler(MovieContext context)
 {
-    public class GetCategoryByIdQueryHandler
+    public async Task<GetCategoryByIdQueryResult> Handle(GetCategoryByIdQuery query)
     {
-        private readonly MovieContext _context;
-
-        public GetCategoryByIdQueryHandler(MovieContext context)
+        var value = await context.Categories.FindAsync(query.CategoryId);
+        if(value == null)
         {
-            _context = context;
+            throw new Exception("yok");
         }
-        public async Task<GetCategoryByIdQueryResult> Handle(GetCategoryByIdQuery query)
+        return new GetCategoryByIdQueryResult
         {
-            var value = await _context.Categories.FindAsync(query.CategoryId);
-            return new GetCategoryByIdQueryResult
-            {
-                CategoryId = value.CategoryId,
-                CategoryName = value.CategoryName
-            };
-        }
+            CategoryId = value.CategoryId,
+            CategoryName = value.CategoryName,
+            Status = value.Status,
+            Icon = value.Icon,
+            Color = value.Color,
+        };
     }
 }

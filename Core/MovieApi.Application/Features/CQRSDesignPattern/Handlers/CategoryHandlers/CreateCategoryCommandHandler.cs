@@ -16,7 +16,10 @@ namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandl
         {
             _context.Categories.Add(new Category
             {
-                CategoryName = command.CategoryName
+                CategoryName = command.CategoryName,
+                Status = command.Status,
+                Icon = command.Icon,
+                Color = command.Color
             });
             await _context.SaveChangesAsync();
         }

@@ -1,20 +1,20 @@
 ﻿using MovieApi.Application.Features.CQRSDesignPattern.Commands.CategoryCommands;
 using MovieApi.Persistence.Context;
 
-namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandlers
+namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandlers;
+
+public class UpdateCategoryCommandHandler(MovieContext context)
 {
-    public class UpdateCategoryCommandHandler
+    public async Task Handle(UpdateCategoryCommand command)
     {
-        private readonly MovieContext _context;
-        public UpdateCategoryCommandHandler(MovieContext context)
+        var value = await context.Categories.FindAsync(command.CategoryId);
+        if (value is not null)
         {
-            _context = context;
-        }
-        public async Task Handle(UpdateCategoryCommand command)
-        {
-            var value = await _context.Categories.FindAsync(command.CategoryId);
             value.CategoryName = command.CategoryName;
-            await _context.SaveChangesAsync();
+            value.Status = command.Status;
+            value.Icon = command.Icon;
+            value.Color = command.Color;
+            await context.SaveChangesAsync();
         }
     }
 }

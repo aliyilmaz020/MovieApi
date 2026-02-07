@@ -1,30 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieApi.Application.Features.CQRSDesignPattern.Results.CategoryResults;
 using MovieApi.Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandlers
+namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandlers;
+
+public class GetCategoryQueryHandler(MovieContext context)
 {
-    public class GetCategoryQueryHandler
+    public async Task<List<GetCategoryQueryResult>> Handle()
     {
-        private readonly MovieContext _context;
-
-        public GetCategoryQueryHandler(MovieContext context)
+        var values = await context.Categories.ToListAsync();
+        return values.Select(x=>new GetCategoryQueryResult
         {
-            _context = context;
-        }
-        public async Task<List<GetCategoryQueryResult>> Handle()
-        {
-            var values = await _context.Categories.ToListAsync();
-            return values.Select(x=>new GetCategoryQueryResult
-            {
-                CategoryId = x.CategoryId,
-                CategoryName = x.CategoryName,
-            }).ToList();
-        }
+            CategoryId = x.CategoryId,
+            CategoryName = x.CategoryName,
+            Status = x.Status,
+            Icon = x.Icon,
+            Color = x.Color,
+        }).ToList();
     }
 }
