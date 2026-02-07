@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MovieApi.Domain.Entities
+﻿namespace MovieApi.Domain.Entities;
+public class Category
 {
-    public class Category
-    {
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
-    }
+    public int CategoryId { get; set; }
+    public string CategoryName { get; set; }
+    public string Icon { get; set; }
+    public string Color { get; set; }
+    public bool Status { get; set; }
+    public ICollection<Movie> Movies { get; set; }
 }
