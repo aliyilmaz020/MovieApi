@@ -25,8 +25,9 @@ namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.MovieHandlers
                 Rating = x.Rating,
                 ReleaseDate = x.ReleaseDate,
                 Status = x.Status,
-                Title = x.Title
-            }).OrderByDescending(x=>x.ReleaseDate).ToList();
+                Title = x.Title,
+                CategoryId = x.CategoryId
+            }).OrderByDescending(x => x.ReleaseDate).ToList();
         }
     }
 }

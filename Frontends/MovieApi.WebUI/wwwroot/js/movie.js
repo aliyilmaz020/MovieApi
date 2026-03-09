@@ -27,6 +27,7 @@ async function editFilm(id) {
         document.getElementById('filmCoverImageUrl').value = film.coverImageUrl;
         document.getElementById('filmReleaseDate').value = film.releaseDate;
         document.getElementById('filmDescription').value = film.description;
+        document.getElementById('filmCategory').value = film.categoryId;
     }
 }
 async function saveFilm() {
@@ -45,6 +46,7 @@ async function saveFilm() {
             coverImageUrl: $('#filmCoverImageUrl').val(),
             releaseDate: $('#filmReleaseDate').val(),
             description: $('#filmDescription').val(),
+            categoryId: parseInt($('#filmCategory :selected').val()),
             status: false
         };
         await createMovie(movie)
@@ -58,6 +60,7 @@ async function saveFilm() {
             coverImageUrl: $('#filmCoverImageUrl').val(),
             releaseDate: $('#filmReleaseDate').val(),
             description: $('#filmDescription').val(),
+            categoryId: parseInt($('#filmCategory :selected').val()),
             status: false
         }
         await updateMovie(movie);
@@ -94,6 +97,27 @@ async function updateMovie(movie) {
         toastr("Başarısız", "Güncelleme Başarısız");
     }
     row = '';
+}
+async function getCategories() {
+    const response = await fetch("/Admin/Category/GetCategories", {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json; charset=utf-8;"
+        }
+    });
+    const data = JSON.parse(await response.json());
+    populateCategoryDropdown(data);
+}
+function populateCategoryDropdown(categories) {
+    debugger
+    const select = document.getElementById("filmCategory");
+    select.innerHTML = '<option value="">Kategori Seçin...</option>';
+    categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category.categoryId;
+        option.text = category.categoryName;
+        select.appendChild(option);
+    })
 }
 function closeModal() {
     document.getElementById('filmModal').classList.remove('show');
@@ -208,6 +232,7 @@ document.getElementById('deleteModal').addEventListener('click', function (e) {
 });
 document.addEventListener('DOMContentLoaded', async function () {
     await getFilms();
+    await getCategories();
 })
 document.getElementById('filmRating').addEventListener('input', function () {
     this.value = this.value

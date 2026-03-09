@@ -1,26 +1,15 @@
 ﻿using MovieApi.Application.Features.CQRSDesignPattern.Queries.MovieQueries;
 using MovieApi.Application.Features.CQRSDesignPattern.Results.MovieResults;
 using MovieApi.Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.MovieHandlers
+namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.MovieHandlers;
+
+public class GetMovieByIdQueryHandler(MovieContext context)
 {
-    public class GetMovieByIdQueryHandler
+    public async Task<GetMovieByIdQueryResult> Handler(GetMovieByIdQuery query)
     {
-        private readonly MovieContext _context;
-
-        public GetMovieByIdQueryHandler(MovieContext context)
-        {
-            _context = context;
-        }
-
-        public async Task<GetMovieByIdQueryResult> Handler(GetMovieByIdQuery query)
-        {
-            var value = await _context.Movies.FindAsync(query.MovieId);
+        var value = await context.Movies.FindAsync(query.MovieId);
+        if (value != null)
             return new GetMovieByIdQueryResult
             {
                 MovieId = value.MovieId,
@@ -31,8 +20,9 @@ namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.MovieHandlers
                 Rating = value.Rating,
                 ReleaseDate = value.ReleaseDate,
                 Status = value.Status,
-                Title = value.Title
+                Title = value.Title,
+                CategoryId = value.CategoryId
             };
-        }
+        return new GetMovieByIdQueryResult();
     }
 }
