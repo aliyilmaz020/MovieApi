@@ -192,7 +192,7 @@ const updateCategory = async (category) => {
         },
         body: JSON.stringify(category)
     });
-    if (response.status)
+    if (response.ok)
         toastr("Başarılı", "Kategori Güncelleme İşlemi Başarılı");
     else
         toastr("Başarısız", `Bir hata oluştu: ${response.status}`, 'bg-danger');

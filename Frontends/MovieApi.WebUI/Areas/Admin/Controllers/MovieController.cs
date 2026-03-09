@@ -74,6 +74,19 @@ public class MovieController(IHttpClientFactory httpClientFactory) : Controller
             string data = await response.Content.ReadAsStringAsync();
             return Json(data);
         }
-        return Json(null);
+        else
+        {
+            return StatusCode((int)response.StatusCode);
+        }
+    }
+    [HttpPost]
+    public async Task<IActionResult> GetMoviesWithPage([FromBody] GetMovieWithPageDto dto)
+    {
+        var client = httpClientFactory.CreateClient("MovieApi");
+        var response = await client.GetAsync($"Movies/MovieWithPage?Page={dto.Page}");
+        if (!response.IsSuccessStatusCode)
+            return StatusCode((int)response.StatusCode);
+        string data = await response.Content.ReadAsStringAsync();
+        return Json(data);
     }
 }

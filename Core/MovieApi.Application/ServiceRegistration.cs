@@ -25,6 +25,7 @@ public static class ServiceRegistration
         services.AddScoped<CreateMovieCommandHandler>();
         services.AddScoped<UpdateMovieCommandHandler>();
         services.AddScoped<RemoveMovieCommandHandler>();
+        services.AddScoped<GetMoviePageSizeQueryHandler>();
 
     }
 }

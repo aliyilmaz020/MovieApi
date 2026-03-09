@@ -16,7 +16,6 @@ async function editFilm(id) {
     document.getElementById('modalTitle').textContent = 'Film Düzenle';
     document.getElementById('btnSaveOrEdit').textContent = 'Güncelle';
 
-    // Film verilerini yükle (örnek)
     let film = await getFilm(id);
 
     if (film) {
@@ -63,6 +62,7 @@ async function saveFilm() {
             categoryId: parseInt($('#filmCategory :selected').val()),
             status: false
         }
+        debugger
         await updateMovie(movie);
     }
     await getFilms()
@@ -97,6 +97,23 @@ async function updateMovie(movie) {
         toastr("Başarısız", "Güncelleme Başarısız");
     }
     row = '';
+}
+async function getMoviesWithPage(page) {
+    const response = await fetch("/Admin/Movie/GetMoviesWithPage", {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json; charset=utf-8;"
+        },
+        body: JSON.stringify({ page: page })
+    });
+    if (!response.ok)
+        toastr("Başarısız", `Bir hata oluştu: ${response.status}`, "")
+    const data = JSON.parse(await response.json());
+    debugger
+    data.movies.forEach(movie => {
+        fillFilmsTable(movie);
+    });
+    $('#sizeMovie').val(data.count);
 }
 async function getCategories() {
     const response = await fetch("/Admin/Category/GetCategories", {
@@ -240,4 +257,18 @@ document.getElementById('filmRating').addEventListener('input', function () {
         .replace(/[^0-9.]/g, '')      // Rakam + nokta dışını sil
         .replace(/(\..*)\./g, '$1');  // Tek nokta olsun
 });
+function changePage(page, e) {  // event parametresi eklendi
+    console.log('Sayfa değiştiriliyor:', page);
 
+    document.querySelectorAll('.pagination li').forEach(li => {
+        li.classList.remove('active');
+    });
+
+    e.target.closest('li').classList.add('active');
+}
+
+function changePageSize() {
+    const pageSize = document.getElementById('pageSize').value;
+    console.log('Sayfa başına:', pageSize);
+    // window.location.href = '/Film/Index?pageSize=' + pageSize;
+}
